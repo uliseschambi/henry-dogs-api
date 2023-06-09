@@ -17,7 +17,7 @@ server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://henry-dogs-7xdp.onrender.com"
+    "https://henry-dogs-kcik.onrender.com"
   ); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
