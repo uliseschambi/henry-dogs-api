@@ -11,6 +11,6 @@ COPY . /app
 RUN npm install
 
 # Define the entry point for the container
-CMD ["npm", "start"]
-
 EXPOSE 3001
+EXPOSE 8080
+CMD ["npm", "start"]
