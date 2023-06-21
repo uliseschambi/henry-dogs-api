@@ -10,7 +10,8 @@ COPY . /app
 # Install the application dependencies
 RUN npm install
 
+# Expose the port the app runs in
+EXPOSE 3001/tcp
+
 # Define the entry point for the container
-EXPOSE 3001
-EXPOSE 8080
 CMD ["npm", "start"]
