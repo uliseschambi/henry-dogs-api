@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+ENV PORT=3001
+
 EXPOSE 3001
 
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
