@@ -9,12 +9,14 @@ const { json } = require('body-parser');
 
 router.get('/', async (req, res) => {
   const { name } = req.query;
-  const { origin } = req.query;
+  // const { origin } = req.query;
 
   // DATA DE LA API
 
   try {
-    const axiosData = await axios.get('https://api.thedogapi.com/v1/breeds');
+    const axiosData = await axios.get(
+      'https://api.thedogapi.com/v1/breeds'
+    );
     const dogsAPI = axiosData.data;
     const formatDogsApi = dogsAPI.map(dog => ({
       id: dog.id,
@@ -22,8 +24,9 @@ router.get('/', async (req, res) => {
       name: dog.name,
       temperament: dog.temperament,
       weight: dog.weight.metric,
+      origin: 'api',
     }));
-    if (origin === 'api') return res.send(formatDogsApi);
+    // if (origin === 'api') return res.send(formatDogsApi);
 
     // DATA DE LA DB
 
@@ -44,9 +47,10 @@ router.get('/', async (req, res) => {
         name: dog.name,
         temperament: temperament.toString(),
         weight: dog.weight,
+        origin: 'db',
       };
     });
-    if (origin === 'db') return res.send(formatDogsDB);
+    // if (origin === 'db') return res.send(formatDogsDB);
 
     // DATA DE LA API MÁS LA DB
 
@@ -63,9 +67,13 @@ router.get('/', async (req, res) => {
             weight: dog.weight,
             temperament: dog.temperament,
             image: dog.image,
+            origin: dog.origin,
           };
       });
-      if (!dogs.length) return res.status(200).send(`No existe una raza con el nombre ${name}.`);
+      if (!dogs.length)
+        return res
+          .status(200)
+          .send(`No existe una raza con el nombre ${name}.`);
       return res.send(dogs);
     }
     res.send(dogsAll);
@@ -80,7 +88,9 @@ router.get('/:idRaza', async function (req, res) {
   const { idRaza } = req.params;
 
   try {
-    const axiosData = await axios.get('https://api.thedogapi.com/v1/breeds');
+    const axiosData = await axios.get(
+      'https://api.thedogapi.com/v1/breeds'
+    );
     const dogsAPI = axiosData.data;
     const dog = dogsAPI.find(dog => dog.id == idRaza);
     if (dog) {
@@ -109,10 +119,14 @@ router.get('/:idRaza', async function (req, res) {
       ],
     });
     const dogJS = dogDB.get({ plain: true }); // JSON.parse(JSON.stringify(dogDB)); >>> obj model to obj JS
-    dogJS.temperaments = dogDB.temperaments.map(t => t.name).join(', '); // Solo formateo el array de temperaments a string
+    dogJS.temperaments = dogDB.temperaments
+      .map(t => t.name)
+      .join(', '); // Solo formateo el array de temperaments a string
     return res.json(dogJS);
   } catch (error) {
-    res.status(404).send(`El id "${idRaza}" no corresponde a una raza existente.`);
+    res
+      .status(404)
+      .send(`El id "${idRaza}" no corresponde a una raza existente.`);
   }
 });
 
