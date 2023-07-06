@@ -30,7 +30,7 @@ fs.readdirSync(path.join(__dirname, '/models'))
     );
   });
 
-// Injectamos la conexion (sequelize) a todos los modelos
+// Definimos cada modelo pasando como argumento la instancia de sequelize
 modelDefiners.forEach(model => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
