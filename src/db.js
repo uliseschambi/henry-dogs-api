@@ -11,9 +11,9 @@ const sequelize = new Sequelize(
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
     pool: {
-      max: 1,
+      max: 5,
       min: 0,
-      idle: 10000,
+      idle: 1000,
     },
   }
 );
