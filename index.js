@@ -1,5 +1,5 @@
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const server = require('./api');
+const { conn } = require('./api/db');
 const port = process.env.PORT || 3001;
 
 // Syncing all the models at once.
