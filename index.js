@@ -3,7 +3,7 @@ const { conn } = require('./src/db');
 const port = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ alter: true }).then(() => {
+conn.sync({ force: true }).then(() => {
   console.log('Synchronized models.');
   // server.listen(port, () => {
   server.listen(port, '0.0.0.0', () => {
